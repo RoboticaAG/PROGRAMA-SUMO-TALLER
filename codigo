@@ -1,0 +1,51 @@
+int trig = 8;
+int echo = 9;
+int duracion;
+int distancia;
+
+void GIRAR(){
+  digitalWrite(2, HIGH);
+  analogWrite(3, 255);
+  digitalWrite(4, LOW);
+  digitalWrite(5, HIGH);
+  analogWrite(6, 255);
+  digitalWrite(7, LOW);
+}
+
+void AVANZAR(){
+  digitalWrite(2, HIGH);
+  analogWrite(3, 255);
+  digitalWrite(4, LOW);
+  digitalWrite(5, LOW);
+  analogWrite(6, 255);
+  digitalWrite(7, HIGH);
+}
+
+void setup(){
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+void loop(){
+  
+  digitalWrite(trig, HIGH);
+  delay(1);
+  digitalWrite(trig, LOW);
+  duracion = pulseIn(echo, HIGH);
+  distancia = duracion / 58.2;
+  
+  if((distancia < 30)&&(distancia > 0)){
+    AVANZAR();
+  }
+  
+  if(distancia > 30){
+    GIRAR();
+  }
+  
+}
